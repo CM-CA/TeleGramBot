@@ -17,12 +17,26 @@ bot.on('polling_error', (error) => {
 
 //Welcome Message
 
+//Interface
+
+var buttons = {
+    reply_markup: {
+        inline_keyboard: [
+            [
+                { text: "Lista Compra", callback_data: 'lista_compra' },
+                { text: "Inversiones", callback_data: 'inversiones' },
+                { text: "Tareas Pendientes", callback_data: 'tareas_pendientes' },
+            ]
+        ]
+    }
+};
+
 bot.onText(/^\/start/, (msg) => {
     var chatId = msg.chat.id;
-    var userName = msg.from.first_name;
-
     bot.sendMessage(chatId, "No,No,No...");
-    bot.sendSticker(chatId, "stickers/sticker.webp");
+    bot.sendSticker(chatId, "stickers/sticker.webp", buttons);
+
+    console.log(msg);
 });
 
 //Localization
@@ -31,17 +45,19 @@ bot.onText(/getLocation/, (msg) => {
     const opts = {
         reply_markup: JSON.stringify({
             keyboard: [
-                [{ text: 'Location', request_location: true }],
-                [{ text: 'Contact', request_contact: true }],
+                [{ text: 'Location', request_location: true }]
             ],
             resize_keyboard: true,
             one_time_keyboard: true,
         }),
     };
-    bot.sendMessage(msg.chat.id, 'Contact and Location request', opts);
+    bot.sendMessage(msg.chat.id, 'Location request', opts);
 });
 
 bot.on('location', (msg) => {
     console.log(msg.location.latitude);
     console.log(msg.location.longitude);
 });
+
+
+
