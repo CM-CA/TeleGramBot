@@ -1,27 +1,31 @@
-const TelegramBot = require('node-telegram-bot-api')
+const TelegramBot = require('node-telegram-bot-api');
+
 // Require custom-env and set your preferred env file
-require('custom-env').env('development')
+require('custom-env').env('development');
+
 const fs = require('fs');
 
-const token = process.env.BOT_TOKEN
+const token = process.env.BOT_TOKEN;
 
-const bot = new TelegramBot(token, { polling: true })
+const bot = new TelegramBot(token, { polling: true });
 
-//Plantilla de Bienvenida
+//Welcome Template
 
 bot.on('polling_error', (error) => {
     console.log(error);
-})
-//Mensaje de Bienvenida
+});
+
+//Welcome Message
+
 bot.onText(/^\/start/, (msg) => {
-    var chatId = msg.chat.id
-    var userName = msg.from.first_name
+    var chatId = msg.chat.id;
+    var userName = msg.from.first_name;
 
-    bot.sendMessage(chatId, "No,No,No...")
-    bot.sendSticker(chatId, "stickers/sticker.webp")
-})
+    bot.sendMessage(chatId, "No,No,No...");
+    bot.sendSticker(chatId, "stickers/sticker.webp");
+});
 
-//Localizacion
+//Localization
 
 bot.onText(/getLocation/, (msg) => {
     const opts = {
