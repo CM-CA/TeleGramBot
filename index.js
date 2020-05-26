@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-
+var pyshell = require('python-shell');
 // Require custom-env and set your preferred env file
 require('custom-env').env('development');
 
@@ -60,4 +60,23 @@ bot.on('location', (msg) => {
 });
 
 
+bot.on('callback_query', function onCallBackQuery(actionbutton) {
 
+    const data = actionbutton.data;
+    const msg = actionbutton.message;
+
+    switch (data) {
+        case 'inversiones':
+
+            pyshell.PythonShell.run('./trading/trading.py', null, function (err, results) {
+                if (err) throw err;
+                var res = results[0];
+                return bot.sendMessage(msg.chat.id, "El valor actual de Kyber es " + res);
+            });
+
+            break;
+
+        default:
+            break;
+    }
+})
