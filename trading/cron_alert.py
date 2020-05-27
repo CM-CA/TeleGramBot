@@ -20,7 +20,7 @@ class CronMarketValue():
         min_value = CronMarketValue.set_minimun_value()
 
         if coin_value < min_value:
-            return "El precio esta bajanndo"
+            return "El precio esta bajando"
         else:
             pass
 

@@ -67,23 +67,6 @@ bot.on('location', (msg) => {
 
 //Button Actions
 
-bot.on("callback_query", function onCallBackQuery(actionbutton) {
-
-<<<<<<< HEAD
-    const data = actionbutton.data;
-    const msg = actionbutton.message;
-    switch (data) {
-        case 'inversiones':
-            var result = trading.get_price_kyber();
-            console.log(result);
-            bot.sendMessage(msg.chat.id, 'El precio actual es ' + result);
-            break;
-
-        default:
-            break;
-    }
-});
-=======
 bot.on('callback_query', function onCallBackQuery(actionbutton) {
 
     const data = actionbutton.data;
@@ -106,5 +89,4 @@ bot.on('callback_query', function onCallBackQuery(actionbutton) {
         });
     }
 
-})
->>>>>>> b5d1f34ed3e88ac83d743f8d0c2e455bbdb9931f
+});
