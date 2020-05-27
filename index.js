@@ -41,27 +41,6 @@ bot.onText(/^\/start/, (msg) => {
     console.log(msg);
 });
 
-//Localization
-/*
-bot.onText(/getLocation/, (msg) => {
-    const opts = {
-        reply_markup: JSON.stringify({
-            keyboard: [
-                [{ text: 'Location', request_location: true }]
-            ],
-            resize_keyboard: true,
-            one_time_keyboard: true,
-        }),
-    };
-    bot.sendMessage(msg.chat.id, 'Location request', opts);
-});
-
-bot.on('location', (msg) => {
-    console.log(msg.location.latitude);
-    console.log(msg.location.longitude);
-});
-*/
-
 //Button Actions
 
 bot.on('callback_query', function onCallBackQuery(actionbutton) {
@@ -78,11 +57,11 @@ bot.on('callback_query', function onCallBackQuery(actionbutton) {
     }
 
     if (data === 'investiment_alert') {
-        console.log('active')
+        console.log('active');
         pyshell.PythonShell.run('./trading/cron_alert.py', null, function (err, results) {
             if (err) throw err;
 
-            return console.log(results)
+            return console.log(results);
         });
     }
 
