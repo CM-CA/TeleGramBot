@@ -25,6 +25,7 @@ var buttons = {
             [
                 { text: "Lista Compra", callback_data: 'lista_compra' },
                 { text: "Inversiones", callback_data: 'inversiones' },
+                { text: "Activar Alerta de Precio", callback_data: 'investiment_alert' },
                 { text: "Tareas Pendientes", callback_data: 'tareas_pendientes' },
             ]
         ]
@@ -65,18 +66,21 @@ bot.on('callback_query', function onCallBackQuery(actionbutton) {
     const data = actionbutton.data;
     const msg = actionbutton.message;
 
-    switch (data) {
-        case 'inversiones':
 
-            pyshell.PythonShell.run('./trading/trading.py', null, function (err, results) {
-                if (err) throw err;
-                var res = results[0];
-                return bot.sendMessage(msg.chat.id, "El valor actual de Kyber es " + res);
-            });
-
-            break;
-
-        default:
-            break;
+    if (data === 'inversiones') {
+        pyshell.PythonShell.run('./trading/trading.py', null, function (err, results) {
+            if (err) throw err;
+            return bot.sendMessage(msg.chat.id, "El valor actual de Kyber es " + results);
+        });
     }
+
+    if (data === 'investiment_alert') {
+        console.log('active')
+        pyshell.PythonShell.run('./trading/cron_alert.py', null, function (err, results) {
+            if (err) throw err;
+
+            return console.log(results)
+        });
+    }
+
 })
