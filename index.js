@@ -1,9 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
-<<<<<<< HEAD
-var trading = require('./trading/trading');
-=======
 var pyshell = require('python-shell');
->>>>>>> b5d1f34ed3e88ac83d743f8d0c2e455bbdb9931f
+
 // Require custom-env and set your preferred env file
 require('custom-env').env('development');
 
