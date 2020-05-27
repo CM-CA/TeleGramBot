@@ -1,5 +1,9 @@
 const TelegramBot = require('node-telegram-bot-api');
+<<<<<<< HEAD
 var trading = require('./trading/trading');
+=======
+var pyshell = require('python-shell');
+>>>>>>> b5d1f34ed3e88ac83d743f8d0c2e455bbdb9931f
 // Require custom-env and set your preferred env file
 require('custom-env').env('development');
 
@@ -25,6 +29,7 @@ var buttons = {
             [
                 { text: "Lista Compra", callback_data: 'lista_compra' },
                 { text: "Inversiones", callback_data: 'inversiones' },
+                { text: "Activar Alerta de Precio", callback_data: 'investiment_alert' },
                 { text: "Tareas Pendientes", callback_data: 'tareas_pendientes' },
             ]
         ]
@@ -64,6 +69,7 @@ bot.on('location', (msg) => {
 
 bot.on("callback_query", function onCallBackQuery(actionbutton) {
 
+<<<<<<< HEAD
     const data = actionbutton.data;
     const msg = actionbutton.message;
     switch (data) {
@@ -77,3 +83,28 @@ bot.on("callback_query", function onCallBackQuery(actionbutton) {
             break;
     }
 });
+=======
+bot.on('callback_query', function onCallBackQuery(actionbutton) {
+
+    const data = actionbutton.data;
+    const msg = actionbutton.message;
+
+
+    if (data === 'inversiones') {
+        pyshell.PythonShell.run('./trading/trading.py', null, function (err, results) {
+            if (err) throw err;
+            return bot.sendMessage(msg.chat.id, "El valor actual de Kyber es " + results);
+        });
+    }
+
+    if (data === 'investiment_alert') {
+        console.log('active')
+        pyshell.PythonShell.run('./trading/cron_alert.py', null, function (err, results) {
+            if (err) throw err;
+
+            return console.log(results)
+        });
+    }
+
+})
+>>>>>>> b5d1f34ed3e88ac83d743f8d0c2e455bbdb9931f
