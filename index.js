@@ -50,18 +50,17 @@ bot.on('callback_query', function onCallBackQuery(actionbutton) {
 
 
     if (data === 'inversiones') {
-        pyshell.PythonShell.run('./trading/trading.py', null, function (err, results) {
+        pyshell.PythonShell.run('./trading/trading_bot/trading.py', null, function (err, results) {
             if (err) throw err;
             return bot.sendMessage(msg.chat.id, "El valor actual de Kyber es " + results);
         });
     }
 
     if (data === 'investiment_alert') {
-        console.log('active');
-        pyshell.PythonShell.run('./trading/cron_alert.py', null, function (err, results) {
+        pyshell.PythonShell.run('./trading/trading_bot/cron_alert.py', null, function (err, results) {
             if (err) throw err;
-
-            return console.log(results);
+            console.log(results)
+            return bot.sendMessage(msg.chat.id, "hh"+results);
         });
     }
 
